@@ -100,10 +100,52 @@
                 <div class="row justify-content-center py-5">
                     <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
                         <h1 class="display-3 text-white mb-3 animated slideInDown">Enjoy Your Vacation With Us</h1>
-                        <div class="position-relative w-75 mx-auto animated slideInDown">
+<!--                         <div class="position-relative w-75 mx-auto animated slideInDown">
                             <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Eg: Thailand">
                             <button type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
+                        </div> -->
+                        <div class="position-relative w-75 mx-auto animated slideInDown">
+                                <input id="searchInput" class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Eg: Thailand">
+                                <button id="searchButton" type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
+                            </div>
+                            <div id="searchResults" class="mt-3 text-white"></div>
                         </div>
+                        
+                        <script>
+                            // Predefined list of available destinations
+                            const availableCities = ["Thailand", "Malaysia", "Noida", "Delhi", "Goa", "Mumbai", "Bangalore", "Kolkata"];
+                        
+                            document.getElementById("searchButton").addEventListener("click", function () {
+                                searchCity();
+                            });
+                        
+                            document.getElementById("searchInput").addEventListener("keypress", function (event) {
+                                if (event.key === "Enter") {
+                                    searchCity();
+                                }
+                            });
+                        
+                            function searchCity() {
+                                let query = document.getElementById("searchInput").value.trim().toLowerCase();
+                                let resultsDiv = document.getElementById("searchResults");
+                        
+                                if (query === "") {
+                                    resultsDiv.innerHTML = "<p>Please enter a destination to search.</p>";
+                                    return;
+                                }
+                        
+                                // Filter matching cities
+                                let filteredCities = availableCities.filter(city => city.toLowerCase().includes(query));
+                        
+                                if (filteredCities.length > 0) {
+                                    resultsDiv.innerHTML = "<p>Matching Destinations:</p><ul>" + 
+                                                           filteredCities.map(city => `<li>${city}</li>`).join("") + 
+                                                           "</ul>";
+                                } else {
+                                    resultsDiv.innerHTML = "<p>No matching destinations found.</p>";
+                                }
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
